@@ -1,0 +1,22 @@
+name: Notify Main Repo
+
+on:
+  push:
+    branches:
+      - main  # Adjust as needed
+
+jobs:
+  notify-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Main Repo Workflow
+        run: |
+          curl --request POST \
+                --url https://api.github.com/repos/transitionmapping/transitionmapping.github.io/actions/workflows/deploy.yml/dispatches \
+                --header 'Accept: application/vnd.github+json' \
+                --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }} \
+                --header 'X-GitHub-Api-Version: 2022-11-28' \
+                --header 'content-type: application/json' \
+                --data '{  
+                  "ref": "v4"
+                  }'
