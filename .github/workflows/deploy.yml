@@ -1,0 +1,17 @@
+name: Notify Main Repo
+
+on:
+  push:
+    branches:
+      - main  # Adjust as needed
+
+jobs:
+  notify-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Main Repo Workflow
+        run: |
+          curl -X POST -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/your-username/your-main-repo/actions/workflows/deploy.yml/dispatches \
+          -d '{"ref":"main"}'  # Adjust branch as needed
